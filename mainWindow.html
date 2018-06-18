@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Test Electron</title>
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+	<style>
+		body{
+			background-color: #404552;
+			padding: 10px;
+			color: #222;
+			font-size: 1.5rem;
+		}
+		nav{
+			display: block;
+			height: 12vh;
+			color: #eee;
+			font-size: 2.5rem;
+		}
+		nav div{
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+
+	<nav class="nav justify-content-center bg-info fixed-top">
+		<div class="">
+			<a class="">Entrance List</a>
+		</div>
+	</nav>
+	<br />
+	<br />
+	<ul class="list-group">
+	</ul>
+
+	<label for="" id="pdf-path"></label>
+	<button id="print-pdf" class="btn btn-primary">Print</button>
+
+	<script type="text/javascript">
+		require('./renderer.js')
+		const electron = require('electron');
+		const {ipcRenderer} = electron;
+		const ul = document.querySelector('ul');
+
+		// Catch add Item
+		ipcRenderer.on('item:add', (e, item) => {
+			const li = document.createElement('li');
+			const itemText = document.createTextNode(item);
+			li.appendChild(itemText);
+			li.className ='list-group-item';
+			ul.appendChild(li);
+		});
+
+		// Catch clear Item
+		ipcRenderer.on('item:clear', () => {
+			ul.innerHTML = '';
+		});
+
+		// Remove item
+		ul.addEventListener('dblclick', removeItem);
+
+		function removeItem(e){
+			e.target.remove();
+		}
+
+	</script>
+
+</body>
+
+<script>
+	require('./renderer.js');
+</script>
+</html>

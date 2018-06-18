@@ -1,1 +1,1 @@
-# entrance-of-tithes-and-offerings
+# Entrance of Tithes and Offerings
